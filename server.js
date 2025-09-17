@@ -11,7 +11,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: "https://razorpod-server.onrender.com",
+    origin: "https://razorpod.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
