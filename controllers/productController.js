@@ -1,11 +1,10 @@
-import { Request, Response } from "express";
-import Product from "../models/Product";
-import Category from "../models/Category";
+import Product from "../models/Product.js";
+import Category from "../models/Category.js";
 
-export const getProducts = async (req: Request, res: Response) => {
+export const getProducts = async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit as string) || 30;
-    const skip = parseInt(req.query.skip as string) || 0;
+    const limit = parseInt(req.query.limit) || 30;
+    const skip = parseInt(req.query.skip) || 0;
 
     const products = await Product.find().skip(skip).limit(limit);
     const total = await Product.countDocuments();
@@ -16,7 +15,7 @@ export const getProducts = async (req: Request, res: Response) => {
   }
 };
 
-export const getProduct = async (req: Request, res: Response) => {
+export const getProduct = async (req, res) => {
   try {
     const product = await Product.findOne({ id: req.params.id });
     if (!product) return res.status(404).json({ message: "Product not found" });
@@ -26,7 +25,7 @@ export const getProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const getCategories = async (req: Request, res: Response) => {
+export const getCategories = async (req, res) => {
   try {
     const categories = await Category.find();
     res.json(categories);
@@ -35,11 +34,11 @@ export const getCategories = async (req: Request, res: Response) => {
   }
 };
 
-export const getProductsByCategory = async (req: Request, res: Response) => {
+export const getProductsByCategory = async (req, res) => {
   try {
     const { category } = req.params;
-    const limit = parseInt(req.query.limit as string) || 30;
-    const skip = parseInt(req.query.skip as string) || 0;
+    const limit = parseInt(req.query.limit) || 30;
+    const skip = parseInt(req.query.skip) || 0;
 
     const products = await Product.find({ category }).skip(skip).limit(limit);
     const total = await Product.countDocuments({ category });
@@ -49,4 +48,3 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
     res.status(500).json({ message: err instanceof Error ? err.message : err });
   }
 };
-

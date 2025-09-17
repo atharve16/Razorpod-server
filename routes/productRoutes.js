@@ -4,7 +4,7 @@ import {
   getProduct,
   getCategories,
   getProductsByCategory,
-} from "../controllers/productController";
+} from "../controllers/productController.js";
 
 const router = express.Router();
 
